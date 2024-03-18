@@ -8,12 +8,14 @@ import { Button } from '@/components/ui/button'
 import { useForm } from "react-hook-form"
 import { SignValidation } from "@/lib"
 import { z } from "zod"
+import Loader from "@/components/shared/Loader"
+import { Link } from "react-router-dom"
 "use client"
 
 
 const SignUpForm = () => {
 
-    const isloading = true;
+    const isloading = false;
 
     const form = useForm<z.infer<typeof SignValidation>>({
         resolver: zodResolver(SignValidation),
@@ -38,7 +40,7 @@ const SignUpForm = () => {
                 <img src="assets\images\logo.svg" alt="" />
 
                 <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
-                <p className="text-light-3 small-medium md:base-regular">To use Snapgram enter your details</p>
+                <p className="text-light-3 small-medium md:base-regular">To use Snapgram please enter your details</p>
 
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full mt-4">
                     <FormField
@@ -104,10 +106,13 @@ const SignUpForm = () => {
                     <Button className="shad-button_primary" type="submit">
                         {isloading ? (
                             <div className="flex-center gap-2">
-                                Loading....
+                                <Loader /> Loading....
                             </div>
                         ) : "Sign Up"}
                     </Button>
+                    <p className="text-small-regular text-light-2 text-center mt-2">
+                        Already have an account? <Link to="/signin" className="text-primary-500 text-small-semibold ml-1">Sign In</Link>
+                    </p>
                 </form>
             </div>
         </Form>
